@@ -1,0 +1,11 @@
+app:
+  title: App Title
+  version: 0.0.1a1
+
+token:
+  # 6 hours
+  ttl: 6 * 60 * 60
+
+user:
+  # 5 minutes
+  active_for: 5 * 60

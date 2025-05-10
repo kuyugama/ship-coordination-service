@@ -1,0 +1,37 @@
+[project]
+name = "fastapi-boilerplate"
+version = "0.1.0"
+description = "FastAPI boilerplate"
+requires-python = ">=3.11"
+readme = "README.md"
+dependencies = [
+    "alembic>=1.14.1",
+    "asyncpg>=0.30.0",
+    "bcrypt>=4.2.1",
+    "dynaconf>=3.2.10",
+    "fastapi[standard]>=0.115.8",
+    "pydantic>=2.10.6",
+    "sqlalchemy>=2.0.38",
+]
+
+[dependency-groups]
+dev = [
+    "async-asgi-testclient>=1.4.11",
+    "black>=25.1.0",
+    "pytest>=8.3.4",
+    "pytest-asyncio>=0.25.3",
+    "pytest-postgresql>=6.1.1",
+]
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib"
+]
+pythonpath = ["."]
+python_functions = "test_*"
+python_files = "test_*.py"
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope="session"
+filterwarnings = [
+    "ignore::DeprecationWarning"
+]
