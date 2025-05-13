@@ -2,7 +2,6 @@ import fastapi
 from src import schema, error, util
 from fastapi import APIRouter, FastAPI
 from src.route import router as root_router
-from src.session_holder import session_holder
 from typing import Callable, AsyncContextManager
 from src.error_handlers import default_handler, error_handler, validation_error_handler
 
@@ -15,13 +14,9 @@ def create_lifespan(test_mode: bool = True) -> Callable[[FastAPI], AsyncContextM
         if test_mode:
             pass
         else:
-            session_holder.init(url=util.settings.sqlalchemy.url)
             util.fastapi.setup_route_errors(app)
 
         yield
-
-        if not test_mode:
-            await session_holder.close()
 
     return util.contextmanager.async_manager(lifespan, None)
 
