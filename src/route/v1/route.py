@@ -1,19 +1,52 @@
+import time
+
 from fastapi import APIRouter
+from starlette.responses import JSONResponse
+
+from . import service
+from .schema import PostPositionBody, PostPositionResponse, GetShipResponse, ListShipsResponse
+
+router = APIRouter(prefix="/api")
+
+ships_router = APIRouter(prefix="/ships")
 
 
-router = APIRouter(prefix="/api/ships")
+@ships_router.post(
+    "/{id_}/position",
+    summary="Add ship position",
+    operation_id="ships.add_position",
+    response_model=PostPositionResponse,
+)
+def add_ship_position(id_: str, body: PostPositionBody):
+    if body.time < int(time.time()):
+        return JSONResponse({"error": "time out of range"}, 422)
+
+    return service.add_ship_position(id_, body)
 
 
-@router.post("/{id_}/position", summary="Add ship position", operation_id="ships.add_position")
-def add_ship_position(id_: int):
-    pass
-
-
-@router.get("", summary="Get known ships statuses", operation_id="ships.list_all")
+@ships_router.get(
+    "",
+    summary="Get known ships statuses",
+    operation_id="ships.list_all",
+    response_model=ListShipsResponse,
+)
 def list_ships():
-    pass
+    return {"ships": service.list_ships()}
 
 
-@router.get("/{id_}", summary="Get ship details", operation_id="ships.get_ship")
-def get_ship(id_: int):
-    pass
+@ships_router.get(
+    "/{id_}",
+    summary="Get ship details",
+    operation_id="ships.get_ship",
+    response_model=GetShipResponse,
+)
+def get_ship(id_: str):
+    return service.get_ship(id_)
+
+
+router.include_router(ships_router)
+
+
+@router.post("/flush", summary="Flush data", operation_id="flush")
+def flush():
+    service.flush_data()
