@@ -58,3 +58,10 @@ def timer() -> helpers.timer.DebugBreakpointTimer:  # noqa
         print()
         print("--------------------------- TEST TIMER ".ljust(80, "-"))
         print()
+
+
+@pytest.fixture(scope="function", autouse=True)
+async def _cleanup(client):
+    resp = await client.post("/v1/api/flush")
+    print(resp.json())
+    assert resp.status_code == 200
