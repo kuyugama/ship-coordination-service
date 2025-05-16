@@ -6,7 +6,7 @@ def vector(p1: tuple[int, int], p2: tuple[int, int]) -> tuple[int, int]:
     return p2[0] - p1[0], p2[1] - p1[1]
 
 
-def magnitude(v: tuple[int, int]) -> float:
+def magnitude(v: tuple[float, float]) -> float:
     return math.sqrt(v[0] ** 2 + v[1] ** 2)
 
 
@@ -27,10 +27,16 @@ def classify_collision(
     if delta_time_a == 0 or delta_time_b == 0:
         return "green"  # insufficient data
 
+    common_start = max(time_start_a, time_start_b)
+    common_end = min(time_end_a, time_end_b)
+
+    if common_start >= common_end:
+        return "green"
+
     velocity_a = ((x_end_a - x_start_a) / delta_time_a, (y_end_a - y_start_a) / delta_time_a)
     velocity_b = ((x_end_b - x_start_b) / delta_time_b, (y_end_b - y_start_b) / delta_time_b)
-    position_a = (x_end_a, y_end_a)
-    position_b = (x_end_b, y_end_b)
+    position_a = (x_start_a, y_start_a)
+    position_b = (x_start_b, y_start_b)
 
     # vector difference
     delta_position = (position_a[0] - position_b[0], position_a[1] - position_b[1])
@@ -48,7 +54,7 @@ def classify_collision(
             return "green"
 
     time_closest = -dot(delta_position, delta_velocity) / dot_delta_velocity
-    if time_closest < 0:
+    if time_closest <= 0:
         time_closest = 0
 
     # Position of ships at time_closest
