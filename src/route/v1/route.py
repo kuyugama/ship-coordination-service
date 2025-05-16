@@ -4,7 +4,13 @@ from fastapi import APIRouter
 from starlette.responses import JSONResponse
 
 from . import service
-from .schema import PostPositionBody, PostPositionResponse, GetShipResponse, ListShipsResponse
+
+from .schema import (
+    GetShipResponse,
+    PostPositionBody,
+    ListShipsResponse,
+    PostPositionResponse,
+)
 
 router = APIRouter(prefix="/api")
 

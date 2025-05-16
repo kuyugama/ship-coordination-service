@@ -51,7 +51,6 @@ class DebugBreakpointTimer:
         last_stamp = self.__time
         print("NAME".ljust(35), "STAMP".ljust(20), "TOOK", sep="")
         for name, stamp in self._breaks:
-
             print(
                 name.ljust(35),
                 f"{stamp:.3f}".ljust(20),

@@ -37,5 +37,7 @@ class Object(Schema):
         description="Date when object was created", validation_alias="created_at"
     )
     updated: datetime_pd | None = Field(
-        None, description="Date when object was last updated", validation_alias="updated_at"
+        None,
+        description="Date when object was last updated",
+        validation_alias="updated_at",
     )

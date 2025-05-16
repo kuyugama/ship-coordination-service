@@ -22,7 +22,12 @@ def add_ship_position(id_: str, body: PostPositionBody) -> dict[str, typing.Any]
 
     position = {"x": body.x, "y": body.y}
     # TODO: Speed and status
-    position_record = {"time": body.time, "status": "green", "speed": 0, "position": position}
+    position_record = {
+        "time": body.time,
+        "status": "green",
+        "speed": 0,
+        "position": position,
+    }
 
     ship_data["positions"].append(position_record)
     ship_data["last_position"] = position
