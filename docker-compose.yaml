@@ -9,6 +9,6 @@ services:
       - ./.secrets.yaml:/app/.secrets.yaml
 
     ports:
-      - "${APP_PORT}:8000"
+      - "${APP_PORT}:8080"
 
     restart: unless-stopped
