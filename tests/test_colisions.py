@@ -21,7 +21,6 @@ def test_same_direction_different_speed_green():
     ship_a = ((0, 0, 0), (10, 0, 1))
     ship_b = ((0, 0, 1), (5, 0, 2))
     assert classify_collision(ship_a, ship_b) == "green"
-    assert False
 
 def test_same_position_same_direction_red():
     ship_a = ((0, 0, 0), (10, 0, 1))
