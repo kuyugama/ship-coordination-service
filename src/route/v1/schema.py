@@ -21,6 +21,7 @@ class PostPositionResponse(Position):
 class PositionRecord(Schema):
     time: int
     status: str
+    speed: int
     position: Position
 
 
